@@ -2,20 +2,19 @@ version: '2'
 services:
   mongo:
     image: mongo:3
-    restart: always
     volumes:
       - db:/data/db
 
   backup:
-    image: fradelg/mongo-backup
+    build: .
     volumes:
-      - /tmp/mongo-backup:/backup
+      - /tmp/backup:/backup
     depends_on:
       - mongo
     environment:
       MONGO_HOST: 'mongo'
       MONGO_PORT: 27017
-      CRON_TIME: '0 0 * * sun'
+      CRON_TIME: '* * * * *'
       INIT_BACKUP: 1
 
 volumes:

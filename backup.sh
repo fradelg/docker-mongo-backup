@@ -1,22 +1,33 @@
 #!/bin/bash
+source /env.sh
+OPTS="--gzip"
+DATE=$(date +%Y.%m.%d.%H.%M)
+OUTPUT=/backup/$MONGO_HOST-$DATE.archive.gz
 
-DATE=`date +%Y.%m.%d.%H.%M`
-OUTPUT=/backup/$MONGO_HOST-$DATE.archive
-
-if [ ! -z "${MONGO_USER}" ] && [ ! -z "${MONGO_PASS}" ]
+if [ ! -z "$MONGO_USER" ]
 then
-  AUTH_OPTS="-u $MONGO_USER -p $PASS"
+  OPTS="$OPTS --username $MONGO_USER"
+fi
+
+if [ ! -z "$MONGO_PASS" ]
+then
+  OPTS="$OPTS --password $MONGO_PASS"
+fi
+
+if [ ! -z "$MONGO_DB" ]
+then
+  OPTS="$OPTS --db $MONGO_DB"
 fi
 
 echo "=> Backup started at $DATE"
-mongodump --gzip --host $MONGO_HOST --port $MONGO_PORT $AUTH_OPTS --archive=$OUTPUT
+mongodump $OPTS --host "$MONGO_HOST" --port "$MONGO_PORT" --archive="$OUTPUT"
 
 if [ -n "$MAX_BACKUPS" ]; then
-  while [ `ls -1 /backup | wc -l` -gt "$MAX_BACKUPS" ];
+  while [ "$(find /backup -maxdepth 1 | wc -l)" -gt "$MAX_BACKUPS" ]
   do
-    TARGET=`ls -1 /backup | sort | head -n 1`
-    echo "Backup \${TARGET} is deleted"
-    rm -rf /backup/\${TARGET}
+    TARGET=$(find /backup -maxdepth 1 | sort | head -n 1)
+    rm -rf "$TARGET"
+    echo "Backup $TARGET is deleted"
   done
 fi
 
