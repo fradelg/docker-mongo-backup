@@ -20,7 +20,7 @@ then
 fi
 
 echo "=> Backup started at $DATE"
-mongodump $OPTS --host "$MONGO_HOST" --port "$MONGO_PORT" --archive="$OUTPUT"
+mongodump --forceTableScan $OPTS --host "$MONGO_HOST" --port "$MONGO_PORT" --archive="$OUTPUT"
 
 if [ -n "$MAX_BACKUPS" ]; then
   while [ "$(find /backup -maxdepth 1 | wc -l)" -gt "$MAX_BACKUPS" ]
