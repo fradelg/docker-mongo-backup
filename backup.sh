@@ -19,6 +19,11 @@ then
   OPTS="$OPTS --db $MONGO_DB"
 fi
 
+if [ ! -z "$MONGO_AUTH_DB" ]
+then
+  OPTS="$OPTS --authenticationDatabase $MONGO_AUTH_DB"
+fi
+
 echo "=> Backup started at $DATE"
 mongodump --forceTableScan $OPTS --host "$MONGO_HOST" --port "$MONGO_PORT" --archive="$OUTPUT"
 

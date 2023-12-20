@@ -5,6 +5,11 @@ then
   AUTH_OPTS="-u $MONGO_USER -p $PASS"
 fi
 
+if [ ! -z "$MONGO_AUTH_DB" ]
+then
+  AUTH_OPTS="$AUTH_OPTS --authenticationDatabase $MONGO_AUTH_DB"
+fi
+
 if mongorestore --gzip --host "$MONGO_HOST" --port "$MONGO_PORT" "$AUTH_OPTS" --archive=\$1
 then
     echo "=> Restore succeeded"

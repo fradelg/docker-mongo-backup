@@ -4,9 +4,12 @@ services:
   mongo:
     image: mongo:7.0.0
     volumes:
-      - data_db:/data/db
+      - ./data_db:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pass
 
-  backup:
+  mongo-backup:
     # build: .
     image: mongo-backup:1.0.0
     volumes:
@@ -16,8 +19,13 @@ services:
     environment:
       MONGO_HOST: 'mongo'
       MONGO_PORT: 27017
+      MONGO_USER: admin
+      MONGO_PASS: pass
+      MONGO_AUTH_DB: admin
+      MONGO_DB: finans
       CRON_TIME: '* * * * *'
-      INIT_BACKUP: 1
+      # INIT_BACKUP: 1
+      
 
 volumes:
   data_db:
