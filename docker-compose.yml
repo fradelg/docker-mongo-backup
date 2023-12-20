@@ -1,14 +1,16 @@
 version: '2'
 services:
+  
   mongo:
-    image: mongo:3
+    image: mongo:7.0.0
     volumes:
-      - db:/data/db
+      - data_db:/data/db
 
   backup:
-    build: .
+    # build: .
+    image: mongo-backup:1.0.0
     volumes:
-      - /tmp/backup:/backup
+      - ./backup:/backup
     depends_on:
       - mongo
     environment:
@@ -18,5 +20,5 @@ services:
       INIT_BACKUP: 1
 
 volumes:
-  db:
+  data_db:
     driver: local

@@ -1,4 +1,4 @@
-FROM mongo:3
+FROM mongo:7.0.0
 LABEL maintainer "Fco. Javier Delgado del Hoyo <frandelhoyo@gmail.com>"
 
 RUN apt-get update && apt-get install -y cron && rm -rf /var/lib/apt/lists/*

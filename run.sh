@@ -1,4 +1,3 @@
-#!/bin/bash
 touch /backup.log
 tail -F /backup.log &
 env > /.env
