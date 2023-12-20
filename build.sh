@@ -1,2 +1,2 @@
 
-docker build -t mongo-backup:1.0.0 .
+docker build -t mongo-backup:1.0.1 .
