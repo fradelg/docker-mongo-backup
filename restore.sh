@@ -2,7 +2,7 @@
 echo "=> Restore database from \$1"
 if [ ! -z "${MONGO_USER}" ] && [ ! -z "${MONGO_PASS}" ]
 then
-  AUTH_OPTS="-u $MONGO_USER -p $PASS"
+  AUTH_OPTS="-u $MONGO_USER -p $MONGO_PASS"
 fi
 
 if [ ! -z "$MONGO_AUTH_DB" ]

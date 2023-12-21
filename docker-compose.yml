@@ -11,7 +11,7 @@ services:
 
   mongo-backup:
     # build: .
-    image: mongo-backup:1.0.1
+    image: mongo-backup:1.0.2
     volumes:
       - ./backup:/backup
     depends_on:
