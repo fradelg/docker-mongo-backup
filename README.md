@@ -1,7 +1,5 @@
 # mongo-backup
 
-Location: https://github.com/fradelg/docker-mongo-backup
-
 Use mongodump from official mongo image to make regularly backups of your mongo database with cron in `/backup`.
 
 - Use [archive and gzip](https://www.mongodb.com/blog/post/archiving-and-compression-in-mongodb-tools) options of mongodump
@@ -21,6 +19,7 @@ See the `docker-compose.yml` example in this repo. This is a typical setup in a 
 - MAX_BACKUPS: the number of backups to keep. When reaching the limit, the old backup will be discarded. No limit by default
 - INIT_BACKUP: if set, create a backup when the container starts
 - INIT_RESTORE_LATEST: if set, restore the latest database backup
+- MONGO_AUTH_DB: authenticationDatabase used
 
 ## Restore from a backup
 
