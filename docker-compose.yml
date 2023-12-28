@@ -1,22 +1,32 @@
 version: '2'
 services:
+  
   mongo:
-    image: mongo:3
+    image: mongo:7.0.0
     volumes:
-      - db:/data/db
+      - ./data_db:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pass
 
-  backup:
-    build: .
+  mongo-backup:
+    # build: .
+    image: mongo-backup:1.0.2
     volumes:
-      - /tmp/backup:/backup
+      - ./backup:/backup
     depends_on:
       - mongo
     environment:
-      MONGO_HOST: 'mongo'
+      MONGO_HOST: mongo
       MONGO_PORT: 27017
+      MONGO_USER: admin
+      MONGO_PASS: pass
+      MONGO_AUTH_DB: admin
+      MONGO_DB: finans
       CRON_TIME: '* * * * *'
-      INIT_BACKUP: 1
+      # INIT_BACKUP: 1
+      
 
 volumes:
-  db:
+  data_db:
     driver: local

@@ -4,19 +4,30 @@ OPTS="--gzip"
 DATE=$(date +%Y.%m.%d.%H.%M)
 OUTPUT=/backup/$MONGO_HOST-$DATE.archive.gz
 
+echo "MONGO_HOST: $MONGO_HOST"
+
 if [ ! -z "$MONGO_USER" ]
 then
   OPTS="$OPTS --username $MONGO_USER"
+  echo "MONGO_USER: $MONGO_USER"
 fi
 
 if [ ! -z "$MONGO_PASS" ]
 then
   OPTS="$OPTS --password $MONGO_PASS"
+  echo "MONGO_PASS: ********"
 fi
 
 if [ ! -z "$MONGO_DB" ]
 then
   OPTS="$OPTS --db $MONGO_DB"
+  echo "MONGO_DB: $MONGO_DB"
+fi
+
+if [ ! -z "$MONGO_AUTH_DB" ]
+then
+  OPTS="$OPTS --authenticationDatabase $MONGO_AUTH_DB"
+  echo "MONGO_AUTH_DB: $MONGO_AUTH_DB"
 fi
 
 echo "=> Backup started at $DATE"
@@ -31,4 +42,4 @@ if [ -n "$MAX_BACKUPS" ]; then
   done
 fi
 
-echo "=> Backup done"
+echo "=> Backup done: $OUTPUT"

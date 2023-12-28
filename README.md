@@ -19,6 +19,7 @@ See the `docker-compose.yml` example in this repo. This is a typical setup in a 
 - MAX_BACKUPS: the number of backups to keep. When reaching the limit, the old backup will be discarded. No limit by default
 - INIT_BACKUP: if set, create a backup when the container starts
 - INIT_RESTORE_LATEST: if set, restore the latest database backup
+- MONGO_AUTH_DB: authenticationDatabase used
 
 ## Restore from a backup
 

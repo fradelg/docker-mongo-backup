@@ -1,4 +1,3 @@
-#!/bin/bash
 touch /backup.log
 tail -F /backup.log &
 env > /.env
@@ -28,6 +27,7 @@ then
   echo "export MONGO_USER=$MONGO_USER" >> $CRONENV
   echo "export MONGO_PASS=$MONGO_PASS" >> $CRONENV
   echo "export MAX_BACKUPS=$MAX_BACKUPS" >> $CRONENV
+  echo "export MONGO_AUTH_DB=$MONGO_AUTH_DB" >> $CRONENV
   echo "${CRON_TIME} /backup.sh >> /backup.log 2>&1" > $CRONJOB
   chmod 600 $CRONJOB
   crontab $CRONJOB
